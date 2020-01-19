@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahmoudsallam.myapplication.R;
+import com.mahmoudsallam.myapplication.teams.data.local.TeamEntity;
 import com.mahmoudsallam.myapplication.teams.data.model.Teams;
 
 import java.util.List;
@@ -38,9 +40,9 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.AlbumsViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AlbumsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final AlbumsViewHolder holder, int position) {
         final Teams team = teamsList.get(position);
-        holder.albumName.setText(team.getName());
+        holder.teamName.setText(team.getName());
         holder.teamWebsite.setText(team.getWebsite());
         holder.teamWebsite.setTextColor(Color.BLUE);
         holder.teamWebsite.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +63,30 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.AlbumsViewHo
                 teamsInterface.openTeamDetails(id);
             }
         });
+
+        holder.saveImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TeamEntity teamEntity = new TeamEntity(team.getId(), team.getWebsite(),
+                        team.getClubColors(), team.getVenue(), team.getTla());
+
+                if (holder.saveImage.getDrawable().getConstantState() == context.getResources().
+                        getDrawable(R.drawable.ic_book).getConstantState())
+                {
+                    holder.saveImage.setImageResource(R.drawable.ic_book_mark);
+                    teamsInterface.saveTeamLocally(teamEntity);
+                }
+
+                else if (holder.saveImage.getDrawable().getConstantState() == context.getResources().
+                        getDrawable(R.drawable.ic_book_mark).getConstantState()) {
+                    holder.saveImage.setImageResource(R.drawable.ic_book);
+                    teamsInterface.deleteTeamLocally(teamEntity);
+
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -69,15 +95,17 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.AlbumsViewHo
     }
 
     class AlbumsViewHolder extends RecyclerView.ViewHolder {
-        TextView albumName, teamWebsite, clubColor, teamVenue, teamPlayer;
+        TextView teamName, teamWebsite, clubColor, teamVenue, teamPlayer;
+        ImageView saveImage;
 
         public AlbumsViewHolder(@NonNull View itemView) {
             super(itemView);
-            albumName = itemView.findViewById(R.id.teamName);
+            teamName = itemView.findViewById(R.id.teamName);
             teamWebsite = itemView.findViewById(R.id.teamWebsite);
             clubColor = itemView.findViewById(R.id.clubColor);
             teamVenue = itemView.findViewById(R.id.teamVenue);
             teamPlayer = itemView.findViewById(R.id.teamPlayer);
+            saveImage = itemView.findViewById(R.id.saveImage);
         }
     }
 }

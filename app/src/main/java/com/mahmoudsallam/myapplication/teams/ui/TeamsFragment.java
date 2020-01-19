@@ -13,19 +13,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.mahmoudsallam.myapplication.R;
 import com.mahmoudsallam.myapplication.teamDetails.ui.TeamDetailsFragment;
+import com.mahmoudsallam.myapplication.teams.data.local.TeamEntity;
+import com.mahmoudsallam.myapplication.teams.data.local.TeamsDatabase;
 import com.mahmoudsallam.myapplication.teams.data.model.Teams;
 
 import java.util.List;
 
 public class TeamsFragment extends Fragment implements MainMvpView, TeamsInterface {
 
+    private TeamsDatabase database;
     private MainPresenter mPresenter;
     private RecyclerView albumsRecyclerView;
     private TeamsAdapter albumsAdapter;
-
 
     public static TeamsFragment newInstance() {
         Bundle args = new Bundle();
@@ -45,6 +48,13 @@ public class TeamsFragment extends Fragment implements MainMvpView, TeamsInterfa
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        database = Room.databaseBuilder(getActivity().getApplicationContext(),
+                TeamsDatabase.class, "TeamsDatabase").allowMainThreadQueries()
+                .fallbackToDestructiveMigration().build();
+    }
 
     @Override
     public void updateUiWithTeams(List<Teams> teamsList) {
@@ -68,6 +78,16 @@ public class TeamsFragment extends Fragment implements MainMvpView, TeamsInterfa
     @Override
     public void openTeamDetails(String id) {
         displayTeamDetails(id);
+    }
+
+    @Override
+    public void saveTeamLocally(TeamEntity entity) {
+        database.teamDao().insert(entity);
+    }
+
+    @Override
+    public void deleteTeamLocally(TeamEntity entity) {
+        database.teamDao().delete(entity);
     }
 
     public void displayTeamDetails(String id) {
