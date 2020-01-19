@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Champions</string>
+    <string name="squad">Squad</string>
+    <string name="test">Ramazan Özcan
+        Niklas Lomb
+        Lukáš Hrádecký
+        Jonathan Tah
+        Wendell
+        Aleksandar Dragović
+        Ayman Azhil
+        Sven Bender
+        Charles Aránguiz
+        Panagiotis Retsos
+        Karim Bellarabi
+        Julian Baumgartlinger
+        Kai Havertz
+        Kerem Demirbay
+        Nadiem Amiri
+        Lars Bender
+        Mitchell Weiser
+        Daley Sinkgraven
+        Exequiel Palacios
+        Adrian Stanilewicz
+        Kevin Volland
+        Lucas Alario
+        Leon Bailey
+        Paulinho
+        Moussa Diaby
+        Joel Pohjanpalo
+        Dieter Herzog
+        Markus Krösche
+        Daniel Niedzkowski
+        Peter Bosz</string>
+
 </resources>

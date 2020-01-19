@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/squadText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/squad"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:textStyle="bold"></TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/squadText">
+
+        <TextView
+            android:id="@+id/playersText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:text="@string/test"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp"></TextView>
+    </ScrollView>
+
+</RelativeLayout>
